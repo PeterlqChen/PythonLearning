@@ -183,6 +183,94 @@ def divide_json(path):
     finally:
         handle.close() # Always runs
 
+# =============================================================================
+# E.P.1 i43: Consider contextlib and with Statements for Reusable try/finally Behavior
+# =============================================================================
+
+"""
+A simple example where with-statement is equivalent to try-finally block:
+    
+lock = Lock()
+with lock:
+    print('Lock is held')
+
+>>>
+
+lock.acquire()
+try:
+    print('Lock is held')
+finally:
+    lock.release()
+"""
+
+# to make your objects and functions capable of use in with statements
+import contextlib
+from contextlib import contextmanager
+
+import logging
+
+def my_function():
+    logging.debug('Some debug data')
+    logging.error('Error log here')
+    logging.debug('More debug data')
+
+my_function() # the default log level for my program is WARNING
+
+@contextmanager
+def debug_logging(level):
+    """
+    for the with statement
+    """
+    logger = logging.getLogger()
+    old_level = logger.getEffectiveLevel()
+    logger.setLevel(level)
+    try:
+        """
+        a coroutine related technique
+        Any exceptions that happen in the with block will be re-raised 
+        by the yield expression for you to catch in the helper function
+        """
+        yield
+    finally:
+        logger.setLevel(old_level)
+
+help(debug_logging)
+
+with debug_logging(logging.DEBUG):
+    my_function()
+my_function()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
