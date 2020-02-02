@@ -190,25 +190,82 @@ for name, count in zip(names, letters):
         longest_name = name
         max_letters = count
 
+# =============================================================================
+# E.P.1 i46: Use Built-in Algorithms and Data Structures
+# =============================================================================
 
+# double-ended queue
+fifo = deque()
+fifo.append(1) # Producer
+x = fifo.popleft() # Consumer
 
+# ordered dictionary
+# keeps track of the order in which its keys were inserted
+# simplify testing and debugging by making all code deterministic
+from collections import OrderedDict 
 
+a = OrderedDict()
+a['foo'] = 1
+a['bar'] = 2
+b = OrderedDict()
+b['foo'] = 'red'
+b['bar'] = 'blue'
+for value1, value2 in zip(a.values(), b.values()):
+    print(value1, value2)
 
+# default dictionary
+# automatically stores a default value when a key doesn't exist
+from collections import defaultdict
 
+int()
+stats = defaultdict(int)
+stats['my_counter'] += 1
 
+# heap queue
+from heapq import heappush, heappop, nsmallest
 
+a = []
+heappush(a, 5)
+heappush(a, 3)
+heappush(a, 7)
+heappush(a, 4)
+a
+type(a)
+print(heappop(a), heappop(a), heappop(a), heappop(a))
 
+nsmallest(1, a)[0]
+a[0]
 
+# bisection
+x = list(range(10**6))
+i = x.index(991234)
 
+from bisect import bisect_left
 
-
-
-
-
-
-
-
-
+# iterator tools
+"""
+Linking iterators together
+• chain: Combines multiple iterators into a single sequential iterator.
+• cycle: Repeats an iterator’s items forever.
+• tee: Splits a single iterator into multiple parallel iterators.
+• zip_longest: A variant of the zip built-in function that works well with
+iterators of different lengths.
+Filtering items from an iterator
+• islice: Slices an iterator by numerical indexes without copying.
+• takewhile: Returns items from an iterator while a predicate function returns
+True.
+• dropwhile: Returns items from an iterator once the predicate function returns
+False for the first time.
+• filterfalse: Returns all items from an iterator where a predicate function
+returns False. The opposite of the filter built-in function.
+Combinations of items from iterators
+• product: Returns the Cartesian product of items from an iterator, which is a
+nice alternative to deeply nested list comprehensions.
+• permutations: Returns ordered permutations of length N with items from an
+iterator.
+• combination: Returns the unordered combinations of length N with
+unrepeated items from an iterator.
+"""
 
 
 
